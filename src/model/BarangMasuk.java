@@ -9,6 +9,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import view.PesanDialog;
 
 /**
@@ -59,6 +70,56 @@ public class BarangMasuk {
 
     public void setList(Object[][] list) {
         this.list = list;
+    }
+    
+     public boolean cetakLaporan(String tglProduksi){
+        boolean adaKesalahan = false;
+        Connection connection;
+        
+        if ((connection = koneksi.getConnection()) != null){
+            String SQLStatement;
+            Statement statement;
+            ResultSet resultSet = null;
+            
+            try{
+                SQLStatement = "SELECT" 
+                + " tbmasuk.`no_masuk` AS tbmasuk_no_masuk, " 
+                + " tbmasuk.`kd_barang` AS tbmasuk_kd_barang, " 
+                + " tbmasuk.`tgl_produksi` AS tbmasuk_tgl_produksi, "
+                + " tbbarang.`nama` AS tbbarang_nama, "
+                + " tbbarang.`jenis` AS tbbarang_jenis, "
+                + " tbbarang.`satuan` AS tbbarang_satuan, "
+                + " tbbarang.`jumlah` AS tbbarang_jumlah, "
+                + " tbbarang.`harga` AS tbbarang_harga "
+                + " FROM "
+                + " `tbbarang` tbbarang INNER JOIN `tbmasuk` tbmasuk ON tbbarang.`kode` = tbmasuk.`kd_barang`";
+                
+                if(!tglProduksi.equals("")){
+                    SQLStatement = SQLStatement + " where tbmasuk.`tgl_produksi` LIKE '%" + tglProduksi + "%'";
+                }
+                statement = connection.createStatement();
+                resultSet = statement.executeQuery(SQLStatement);
+            }catch(SQLException ex){
+                adaKesalahan = true;
+                pesan = "Tidak dapat membaca data\n"+ex;
+            }
+            if(resultSet != null){
+               try{
+                    JasperDesign disain = JRXmlLoader.load("src/reports/BarangMasukReport.jrxml");
+                    JasperReport nilaiLaporan = JasperCompileManager.compileReport(disain);
+                    JRResultSetDataSource resultSetDataSource = new JRResultSetDataSource(resultSet);
+                    JasperPrint cetak = JasperFillManager.fillReport(nilaiLaporan,new HashMap(),resultSetDataSource);
+                    JasperViewer.viewReport(cetak,false);
+               }catch(JRException ex){
+                    adaKesalahan = true;
+                    pesan = "Tidak dapat mencetak laporan\n"+ex;
+               }
+            }
+        }else{
+                adaKesalahan = true;
+                pesan = "Tidak dapat melakukan koneksi ke server\n"+koneksi.getPesanKesalahan();
+        }
+        return !adaKesalahan;
     }
     
     public boolean hapus(String kode){

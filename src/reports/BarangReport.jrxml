@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="45151667-7aa0-41fa-bbbd-8684ca086f96">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="61"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[SELECT
@@ -18,7 +18,8 @@
      tbbarang.`jenis` AS tbbarang_jenis,
      tbbarang.`satuan` AS tbbarang_satuan,
      tbbarang.`jumlah` AS tbbarang_jumlah,
-     tbbarang.`harga` AS tbbarang_harga
+     tbbarang.`harga` AS tbbarang_harga,
+tbkeluar.`jumlah`*tbbarang.`harga` AS tbharga_total
 FROM
      `tbsupplier` tbsupplier INNER JOIN `tbkeluar` tbkeluar ON tbsupplier.`kode` = tbkeluar.`kd_supplier`
      INNER JOIN `tbbarang` tbbarang ON tbkeluar.`kd_barang` = tbbarang.`kode`]]>
@@ -37,6 +38,7 @@ FROM
 	<field name="tbbarang_satuan" class="java.lang.String"/>
 	<field name="tbbarang_jumlah" class="java.lang.Integer"/>
 	<field name="tbbarang_harga" class="java.lang.Integer"/>
+	<field name="tbharga_total" class="java.lang.Long"/>
 	<group name="tbkeluar_tgl_keluar" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{tbkeluar_tgl_keluar}]]></groupExpression>
 		<groupHeader>
@@ -63,9 +65,14 @@ FROM
 				</textField>
 				<staticText>
 					<reportElement uuid="3826831a-4627-401b-a0f9-d71de0f7776b" x="558" y="14" width="47" height="20"/>
-					<textElement textAlignment="Right"/>
-					<text><![CDATA[Total]]></text>
+					<textElement textAlignment="Left"/>
+					<text><![CDATA[Total :]]></text>
 				</staticText>
+				<textField>
+					<reportElement uuid="6c0850fe-6edc-4d5c-aed0-9aa1b7490c01" x="605" y="14" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbharga_total}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 	</group>
@@ -82,7 +89,7 @@ FROM
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="60" splitType="Stretch">
+		<band height="59" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="583d4a8f-3db3-436b-8398-957f8912ecff" x="0" y="0" width="802" height="20"/>
 				<textElement textAlignment="Center">
@@ -91,16 +98,16 @@ FROM
 				<text><![CDATA[LAPORAN BARANG KELUAR]]></text>
 			</staticText>
 			<staticText>
+				<reportElement uuid="4e93c85e-5f86-4a72-b844-aed0aaf09c1e" x="0" y="35" width="802" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Jl. Durian Makmur Rt.09/06 No. 20 Kecamatan Semangka Kelurahan Nangka]]></text>
+			</staticText>
+			<staticText>
 				<reportElement uuid="3cee9854-1c49-4a48-a5bf-7fd85f9489b8" x="0" y="15" width="802" height="20"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PT. KEMBANG GULA SEJAHTERA]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="4e93c85e-5f86-4a72-b844-aed0aaf09c1e" x="0" y="35" width="802" height="20"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Jl. Durian Makmur Rt.09/06 No. 20 Kecamatan Semangka Kelurahan Nangka]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -111,7 +118,7 @@ FROM
 		<band height="125" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="85de081b-b242-43e2-8a2a-c5db6964638f" x="38" y="26" width="76" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -123,7 +130,7 @@ FROM
 			</staticText>
 			<staticText>
 				<reportElement uuid="c711c25b-3d4a-40a3-b2ac-14c2f1ca2fd1" x="114" y="26" width="209" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -135,7 +142,7 @@ FROM
 			</staticText>
 			<staticText>
 				<reportElement uuid="f31ade98-7aa4-4170-84ca-c9683a37d542" x="323" y="26" width="111" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -147,7 +154,7 @@ FROM
 			</staticText>
 			<staticText>
 				<reportElement uuid="b9228938-6d75-4050-9e3c-3c2d1aa8569b" x="434" y="26" width="72" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -159,7 +166,7 @@ FROM
 			</staticText>
 			<staticText>
 				<reportElement uuid="fb6ce333-1ee7-409c-9726-5d673bb16a46" x="506" y="26" width="167" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -171,7 +178,7 @@ FROM
 			</staticText>
 			<staticText>
 				<reportElement uuid="6120b05b-e4aa-4fa2-ac8e-d736d49d9bcc" x="673" y="26" width="73" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -183,7 +190,7 @@ FROM
 			</staticText>
 			<textField>
 				<reportElement uuid="0c2594d5-d7c2-4667-9bf2-894e4c90afa5" x="38" y="46" width="76" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -195,7 +202,7 @@ FROM
 			</textField>
 			<textField>
 				<reportElement uuid="72be3b4f-37a8-45b0-be5f-5a0d7884d644" x="114" y="46" width="209" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -207,7 +214,7 @@ FROM
 			</textField>
 			<textField>
 				<reportElement uuid="d0b34b99-3356-4b39-afbe-c5f46bf17a65" x="323" y="46" width="111" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -219,7 +226,7 @@ FROM
 			</textField>
 			<textField>
 				<reportElement uuid="b025c962-95ca-4f5b-8155-4218107ba4d1" x="434" y="46" width="72" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -231,7 +238,7 @@ FROM
 			</textField>
 			<textField>
 				<reportElement uuid="09e8b806-5804-438d-8a01-4ca8e255ecfa" x="506" y="46" width="167" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -243,7 +250,7 @@ FROM
 			</textField>
 			<textField>
 				<reportElement uuid="becf1037-4dc9-4ba3-9b76-9e3d5da10034" x="673" y="46" width="73" height="20"/>
-				<box>
+				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>

@@ -85,7 +85,11 @@ public class PemasukkanController {
             JOptionPane.showMessageDialog(null, "Kode jenis barang tidak boleh kosong", "Kesalahan", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+    public void cetakLaporan(javax.swing.JTextField tglProduksiTextField){
+        if(!barangMasuk.cetakLaporan(tglProduksiTextField.getText())){
+            JOptionPane.showMessageDialog(null,barangMasuk.getPesan(),"Kesalahan",JOptionPane.ERROR_MESSAGE);
+        }
+    }
     public void hapus(javax.swing.JTextField no_masukTextField){
           if(!no_masukTextField.getText().equals("")){
             if(barangMasuk.hapus(no_masukTextField.getText())){

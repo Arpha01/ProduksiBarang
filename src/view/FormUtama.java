@@ -20,6 +20,8 @@ public class FormUtama extends javax.swing.JFrame {
     public static FormPetugas formPetugas;
     public static FormBarangKeluar formBarangKeluar;
     public static FormBarangMasuk formBarangMasuk;
+    public static FormLaporanBarangKeluar formLaporanBarangKeluar;
+    public static FormLaporanBarangMasuk formLaporanBarangMasuk;
     public FormLogin formLogin = new FormLogin(this, true);
     private final PesanDialog pesanDialog = new PesanDialog();
     /**
@@ -62,7 +64,7 @@ public class FormUtama extends javax.swing.JFrame {
         barangMasukMenuItem = new javax.swing.JMenuItem();
         barangKeluarMenuItem = new javax.swing.JMenuItem();
         laporanMenu = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        laporanBarangMasukMenuItem = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -162,10 +164,20 @@ public class FormUtama extends javax.swing.JFrame {
 
         laporanMenu.setText("Laporan");
 
-        jMenuItem6.setText("Laporan Barang Masuk");
-        laporanMenu.add(jMenuItem6);
+        laporanBarangMasukMenuItem.setText("Laporan Barang Masuk");
+        laporanBarangMasukMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                laporanBarangMasukMenuItemActionPerformed(evt);
+            }
+        });
+        laporanMenu.add(laporanBarangMasukMenuItem);
 
         jMenuItem7.setText("Laporan Barang Keluar");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         laporanMenu.add(jMenuItem7);
 
         jMenuBar1.add(laporanMenu);
@@ -286,6 +298,32 @@ public class FormUtama extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_barangMasukMenuItemActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        if((formLaporanBarangKeluar != null) && formLaporanBarangKeluar.isVisible()){
+            try{
+                formLaporanBarangKeluar.setSelected(true);
+            }catch(PropertyVetoException ex){}
+        }else{
+            formLaporanBarangKeluar = new FormLaporanBarangKeluar();
+            mdiDesktopPane.add(formLaporanBarangKeluar);
+            formLaporanBarangKeluar.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void laporanBarangMasukMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laporanBarangMasukMenuItemActionPerformed
+        // TODO add your handling code here:
+        if((formLaporanBarangMasuk != null) && formLaporanBarangMasuk.isVisible()){
+            try{
+                formLaporanBarangMasuk.setSelected(true);
+            }catch(PropertyVetoException ex){}
+        }else{
+            formLaporanBarangMasuk = new FormLaporanBarangMasuk();
+            mdiDesktopPane.add(formLaporanBarangMasuk);
+            formLaporanBarangMasuk.setVisible(true);
+        }
+    }//GEN-LAST:event_laporanBarangMasukMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -329,12 +367,12 @@ public class FormUtama extends javax.swing.JFrame {
     private javax.swing.JMenuItem deskripsiMenuItem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem jenisBarangMenuItem;
     private javax.swing.JMenuItem keluarMenuItem;
+    private javax.swing.JMenuItem laporanBarangMasukMenuItem;
     private javax.swing.JMenu laporanMenu;
     private javax.swing.JMenuItem loginMenuItem;
     private javax.swing.JMenu masterMenu;

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="60473fd6-8244-42c7-a879-b475dc407989">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     tbmasuk.`no_masuk` AS tbmasuk_no_masuk,
+     tbmasuk.`kd_barang` AS tbmasuk_kd_barang,
+     tbmasuk.`tgl_produksi` AS tbmasuk_tgl_produksi,
+     tbbarang.`nama` AS tbbarang_nama,
+     tbbarang.`jenis` AS tbbarang_jenis,
+     tbbarang.`satuan` AS tbbarang_satuan,
+     tbbarang.`jumlah` AS tbbarang_jumlah,
+     tbbarang.`harga` AS tbbarang_harga
+FROM
+     `tbbarang` tbbarang INNER JOIN `tbmasuk` tbmasuk ON tbbarang.`kode` = tbmasuk.`kd_barang`]]>
+	</queryString>
+	<field name="tbmasuk_no_masuk" class="java.lang.String"/>
+	<field name="tbmasuk_kd_barang" class="java.lang.String"/>
+	<field name="tbmasuk_tgl_produksi" class="java.lang.String"/>
+	<field name="tbbarang_nama" class="java.lang.String"/>
+	<field name="tbbarang_jenis" class="java.lang.String"/>
+	<field name="tbbarang_satuan" class="java.lang.String"/>
+	<field name="tbbarang_jumlah" class="java.lang.Integer"/>
+	<field name="tbbarang_harga" class="java.lang.Integer"/>
+	<group name="tbmasuk_kd_barang" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{tbmasuk_kd_barang}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement uuid="cb3a7288-413c-494f-a4a8-d5cc63d8f158" x="58" y="11" width="83" height="20"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[No. Masuk : ]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="2070f78d-de9f-47ba-a94f-4b35fd387178" x="141" y="11" width="115" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbmasuk_no_masuk}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b61e5de5-8275-4544-b633-c120716f54b1" x="10" y="45" width="802" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Jl. Durian Makmur Rt.09/06 No. 20 Kecamatan Semangka Kelurahan Nangka]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1d178afe-51fb-414a-9e1c-ee762c370a22" x="10" y="25" width="802" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PT. KEMBANG GULA SEJAHTERA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8e5a6725-4fa2-4df7-adde-0965e9c27f7f" x="10" y="10" width="802" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN BARANG MASUK]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ec0b3eb6-d731-4cbe-860a-8323449c8fe1" x="171" y="19" width="71" height="20"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<text><![CDATA[Kode Barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d2158b2b-defa-4d6a-b6cb-a72e3878f7a1" x="242" y="19" width="245" height="20"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nama Barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="09ef8636-9681-4877-9751-5f90e8091734" x="487" y="19" width="157" height="20"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<text><![CDATA[Tanggal Produksi]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="503333e4-fac2-4cd6-88fc-dde8cd4df4d4" x="171" y="39" width="71" height="20"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbmasuk_kd_barang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e18ae46a-6465-46c3-8191-bfff3ac1df2d" x="242" y="39" width="245" height="20"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbbarang_nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c67cd805-dc39-4bc5-bd32-b46584d55ded" x="487" y="39" width="157" height="20"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbmasuk_tgl_produksi}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement uuid="96cb5bdd-f312-4847-bf17-a5dc445c8f06" x="622" y="19" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Halaman "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="92abc62e-32a4-493a-8e80-0e7eb9538605" x="702" y="19" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

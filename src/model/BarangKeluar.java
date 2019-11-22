@@ -116,9 +116,56 @@ public class BarangKeluar {
             ResultSet resultSet = null;
             
             try{
-                SQLStatement = 
+                SQLStatement = "SELECT tbkeluar.`no_keluar` AS tbkeluar_no_keluar, " 
+                + " tbkeluar.`kd_barang` AS tbkeluar_kd_barang, " 
+                + " tbkeluar.`tgl_produksi` AS tbkeluar_tgl_produksi, " 
+                + " tbkeluar.`kd_supplier` AS tbkeluar_kd_supplier, " 
+                + " tbkeluar.`tgl_keluar` AS tbkeluar_tgl_keluar, " 
+                + " tbkeluar.`jumlah` AS tbkeluar_jumlah, " 
+                + " tbsupplier.`nama_supplier` AS tbsupplier_nama_supplier, " 
+                + " tbsupplier.`alamat` AS tbsupplier_alamat, " 
+                + " tbsupplier.`no_telp` AS tbsupplier_no_telp, " 
+                + " tbbarang.`nama` AS tbbarang_nama, " 
+                + " tbbarang.`jenis` AS tbbarang_jenis, " 
+                + " tbbarang.`satuan` AS tbbarang_satuan, " 
+                + " tbbarang.`jumlah` AS tbbarang_jumlah, " 
+                + " tbbarang.`harga` AS tbbarang_harga, " 
+                + " tbkeluar.`jumlah`*tbbarang.`harga` AS tbharga_total " 
+                + " FROM " 
+                + " `tbsupplier` tbsupplier INNER JOIN `tbkeluar` tbkeluar ON tbsupplier.`kode` = tbkeluar.`kd_supplier`\n" 
+                + " INNER JOIN `tbbarang` tbbarang ON tbkeluar.`kd_barang` = tbbarang.`kode`";
+                
+                if((!kdBarang.equals("")) && (!tglKeluar.equals(""))){
+                    SQLStatement = SQLStatement + " where tbkeluar.`kd_barang`="+kdBarang;
+                    SQLStatement = SQLStatement + " and tbkeluar.`tgl_keluar`='"+tglKeluar+"' ";
+                }else if(!kdBarang.equals("")){
+                    SQLStatement = SQLStatement + " where tbkeluar.`kd_barang`="+kdBarang;
+                }else if(!tglKeluar.equals("")){
+                    SQLStatement = SQLStatement + " where tbkeluar.`tgl_keluar` LIKE '%" + tglKeluar + "%'";
+                }
+                statement = connection.createStatement();
+                resultSet = statement.executeQuery(SQLStatement);
+            }catch(SQLException ex){
+                adaKesalahan = true;
+                pesan = "Tidak dapat membaca data\n"+ex;
             }
+            if(resultSet != null){
+               try{
+                    JasperDesign disain = JRXmlLoader.load("src/reports/BarangReport.jrxml");
+                    JasperReport nilaiLaporan = JasperCompileManager.compileReport(disain);
+                    JRResultSetDataSource resultSetDataSource = new JRResultSetDataSource(resultSet);
+                    JasperPrint cetak = JasperFillManager.fillReport(nilaiLaporan,new HashMap(),resultSetDataSource);
+                    JasperViewer.viewReport(cetak,false);
+               }catch(JRException ex){
+                    adaKesalahan = true;
+                    pesan = "Tidak dapat mencetak laporan\n"+ex;
+               }
+            }
+        }else{
+                adaKesalahan = true;
+                pesan = "Tidak dapat melakukan koneksi ke server\n"+koneksi.getPesanKesalahan();
         }
+        return !adaKesalahan;
     }
     
     public boolean simpan(){

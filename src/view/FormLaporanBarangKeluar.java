@@ -5,12 +5,14 @@
  */
 package view;
 
+import controller.PengeluaranController;
+
 /**
  *
  * @author mucha
  */
 public class FormLaporanBarangKeluar extends javax.swing.JInternalFrame {
-
+    private final PengeluaranController pengeluaranController = new PengeluaranController();
     /**
      * Creates new form FormLaporanBarangKeluar
      */
@@ -32,10 +34,10 @@ public class FormLaporanBarangKeluar extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        cetakButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        tglKeluarTextField = new javax.swing.JTextField();
+        kdBarangTextField = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Laporan Barang Keluar");
@@ -44,7 +46,12 @@ public class FormLaporanBarangKeluar extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Kode Barang");
 
-        jButton1.setText("Cetak");
+        cetakButton.setText("Cetak");
+        cetakButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakButtonActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Tutup");
 
@@ -59,11 +66,11 @@ public class FormLaporanBarangKeluar extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2))
+                    .addComponent(tglKeluarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kdBarangTextField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(cetakButton)
                     .addComponent(jButton2))
                 .addGap(80, 80, 80))
         );
@@ -73,26 +80,31 @@ public class FormLaporanBarangKeluar extends javax.swing.JInternalFrame {
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cetakButton)
+                    .addComponent(tglKeluarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jButton2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(kdBarangTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cetakButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakButtonActionPerformed
+        // TODO add your handling code here:
+        pengeluaranController.cetakLaporan(kdBarangTextField, tglKeluarTextField);
+    }//GEN-LAST:event_cetakButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton cetakButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField kdBarangTextField;
+    private javax.swing.JTextField tglKeluarTextField;
     // End of variables declaration//GEN-END:variables
 }

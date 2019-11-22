@@ -45,7 +45,14 @@ public class PengeluaranController {
         LocalDateTime tgl = LocalDateTime.now();
         
         return df.format(tgl);
-    }
+   }
+   
+   public void cetakLaporan(javax.swing.JTextField tglKeluarTextField, javax.swing.JTextField kdBarangTextField){
+       if(!barangKeluar.cetakLaporan(tglKeluarTextField.getText(), kdBarangTextField.getText())){
+           JOptionPane.showMessageDialog(null,barangKeluar.getPesan(),"Kesalahan",JOptionPane.ERROR_MESSAGE);
+       }
+   }
+   
    public void tampilkanFormLihatBarang(){
        formLihatBarang = new FormLihatBarang(null, true);
        if(barang.bacaData()){
@@ -62,7 +69,7 @@ public class PengeluaranController {
            }
        }
    }
-   
+    
    public void tampilkanFormLihatBarangKeluar(){
        formLihatBarangKeluar = new FormLihatBarangKeluar(null, true);
        if(barangKeluar.bacaData()){
